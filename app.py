@@ -11,4 +11,5 @@ if uploaded_file is not None:
     
     if st.sidebar.button("Show Analysis"):
     # Read the uploaded file into a pandas DataFrame
+        if st.sidebar.button("Show Analysis"):
         
