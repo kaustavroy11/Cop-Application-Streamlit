@@ -129,63 +129,6 @@ if uploaded_file is not None:
         crimes_data.arrest = crimes_data.arrest.astype(int)
         crimes_data.domestic = crimes_data.domestic.astype(int)
         
-        #Count Graphs
-        st.title("Count Graphs")
-        st.set_option('deprecation.showPyplotGlobalUse', False)
-        st.header("Weekly Basis")
-        st.caption("The weekly crime count graphs provide a detailed snapshot of crime trends over short intervals, offering a granular perspective on fluctuations in criminal activity. These graphs reveal how crime rates vary throughout the week, potentially indicating patterns such as heightened criminal activity during weekends or specific days.")
-        plt.figure(figsize=(10,5))
-        zone_plot = sns.countplot(data=crimes_data,x='day_of_week',hue='year',order=crimes_data.day_of_week.value_counts().index,palette='Set2')
-        st.pyplot()
         
-        st.header("Monthly/Yearly Basis")
-        st.caption("The count graphs illustrate the fluctuation of crime rates over monthly and yearly periods. Monthly data reveals nuanced patterns, with some months exhibiting peaks while others show declines in crime activity.")
-        plt.figure(figsize=(15,5))
-        zone_plot = sns.countplot(data=crimes_data,x='month',hue='year',order=crimes_data.month.value_counts().index,palette='Set2')
+        arrest_plot = sns.countplot(data=crimes_data,x='year',hue='arrest',palette='Set2')
         st.pyplot()
-        
-        #Pie Chart
-        st.title("Pie Charts")
-        st.header("Crime Wise")
-        st.caption("The size of each slice corresponds to the proportion of that particular type of crime in relation to the total number of crimes reported. By viewing this graphical representation, users can quickly grasp which types of crimes are most prevalent in their location.")
-        crimes_data_primary_type_pie = plt.pie(crimes_data.primary_type_grouped.value_counts(),labels=crimes_data.primary_type_grouped.value_counts().index,autopct='%1.1f%%',radius=3)
-        plt.legend(loc ='best')
-        st.pyplot()
-
-        st.header("Area Wise")
-        st.caption("Visualizing crime data through a pie graph is a great way to easily understand the distribution of different types of crimes in a specific area. Each slice of the pie represents a different category of crime, such as theft, vandalism, assault, etc.")
-        crimes_data_primary_type_pie = plt.pie(crimes_data.loc_grouped.value_counts(),labels=crimes_data.loc_grouped.value_counts().index,autopct='%1.1f%%',shadow=True,radius=3)
-        plt.legend(loc = 'best')
-        st.pyplot()
-        
-        #Bar Graphs
-        st.title("Bar Graphs")
-        st.header("Crime Wise")
-        st.caption("The crime-based crime bar graphs offer a geographical perspective on crime patterns within specific crimes. By visually representing crime rates across different crimes, these graphs provide insights into variations in criminal activity levels and hotspots.")
-        plt.figure(figsize=(20, 6))
-        top_20_primary_types = crimes_data.primary_type.value_counts().index[:20]
-        top_20_counts = crimes_data.primary_type.value_counts().values[:20]
-        primary_type_plot = sns.barplot(x=top_20_primary_types, y=top_20_counts, palette='Set2')
-        plt.xticks(rotation=45) 
-        st.pyplot()
-        
-        st.header("Area Wise")
-        st.caption("The area-based crime bar graphs offer a geographical perspective on crime patterns within specific regions or neighborhoods. By visually representing crime rates across different areas, these graphs provide insights into variations in criminal activity levels and hotspots.")
-        plt.figure(figsize=(20, 6))  # Adjust the figure size as needed
-        # Extracting the top 20 location descriptions and their counts
-        top_20_location_desc = crimes_data.location_description.value_counts().index[:20]
-        top_20_counts = crimes_data.location_description.value_counts().values[:20]
-        # Creating the bar plot
-        location_description_plot_2018 = sns.barplot(x=top_20_location_desc, y=top_20_counts, palette='Set2')
-        plt.xticks(rotation=45) 
-        st.pyplot()
-        
-        
-        zone_plot = sns.countplot(data=crimes_data,x='zone',hue='year',order=crimes_data.zone.value_counts().index,palette='Set2')
-        st.pyplot()
-
-        zone_plot = sns.countplot(data=crimes_data,x='season',hue='year',palette='Set2')
-        st.pyplot()
-
-        
-        
