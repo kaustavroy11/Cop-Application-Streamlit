@@ -18,33 +18,9 @@ import io
 from io import BytesIO
 
 
-crimes_data = pd.read_csv(uploaded_file)
-crimes_data.columns = crimes_data.columns.str.strip()
-crimes_data.columns = crimes_data.columns.str.replace(',', '')
-crimes_data.columns = crimes_data.columns.str.replace(' ', '_')
-crimes_data.columns = crimes_data.columns.str.lower()
-
-        #Checking the data contents
-        st.write(crimes_data.head())
-
-        #Checking the data for any null values and its datatypes
-        st.write(crimes_data.info())
-
-        #Check the data for any duplicates
-        st.write(crimes_data[crimes_data.duplicated(keep=False)])
-
-        # Removing Primary key type attributes as they are of no use for any type of analysis, Location columns is just a combination of Latitude and Longitude
-        crimes_data.drop(['id','case_number','location'],axis=1,inplace=True)
-
-        msno.heatmap(crimes_data,figsize=(15,5))
-
-        msno.dendrogram(crimes_data,figsize=(20,5))
-
-        crimes_data.isnull().sum()
-
-        #Dropping observations where latitude is null/Nan
-        crimes_data.dropna(subset=['latitude'],inplace=True)
-        crimes_data.reset_index(drop=True,inplace=True)
+#Dropping observations where latitude is null/Nan
+crimes_data.dropna(subset=['latitude'],inplace=True)
+crimes_data.reset_index(drop=True,inplace=True)
 
         crimes_data.isnull().sum()
 
