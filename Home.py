@@ -4,8 +4,13 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import helper
 
-
+st.set_page_config(
+    page_title="Cop Application",
+)
+st.title("Main Page")
+st.sidebar.success("Select a page above.")
 st.sidebar.title("Cop Application")
+st.sidebar.caption("Safely Guard people and get instant help with proper Information.")
 # Load your data
 uploaded_file = st.sidebar.file_uploader("Upload CSV file", type=["csv"])
 
@@ -132,6 +137,9 @@ if uploaded_file is not None:
         crimes_data.arrest = crimes_data.arrest.astype(int)
         crimes_data.domestic = crimes_data.domestic.astype(int)
         
+        
+        st.markdown("<h1 style='text-align: center'>About Us</h1>", unsafe_allow_html=True)
+        
         st.title("Crimes in a Calendar Years")
         st.set_option('deprecation.showPyplotGlobalUse', False)
         st.header("Weekly Basis")
@@ -139,6 +147,8 @@ if uploaded_file is not None:
         plt.figure(figsize=(10,5))
         zone_plot = sns.countplot(data=crimes_data,x='day_of_week',hue='year',order=crimes_data.day_of_week.value_counts().index,palette='Set2')
         st.pyplot()
+        
+        st.markdown('<a href="/next_page" target="_self">Next page</a>', unsafe_allow_html=True)
         
         st.header("Monthly/Yearly Basis")
         st.caption("The count graphs illustrate the fluctuation of crime rates over monthly and yearly periods. Monthly data reveals nuanced patterns, with some months exhibiting peaks while others show declines in crime activity.")
@@ -158,6 +168,5 @@ if uploaded_file is not None:
         crimes_data_primary_type_pie = plt.pie(crimes_data.loc_grouped.value_counts(),labels=crimes_data.loc_grouped.value_counts().index,autopct='%1.1f%%',shadow=True,radius=2.5)
         plt.legend(loc = 'best')
         st.pyplot()
-        
         
         
