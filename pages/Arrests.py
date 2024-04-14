@@ -2,6 +2,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import streamlit as st
+from streamlit_extras.add_vertical_space import add_vertical_space
 
 # Load your data
 uploaded_file = st.sidebar.file_uploader("Upload CSV file", type=["csv"])
@@ -130,6 +131,17 @@ if uploaded_file is not None:
         crimes_data.domestic = crimes_data.domestic.astype(int)
         
         #Arrest plots
-        plt.figure(figsize=(20, 6))
+        st.set_option('deprecation.showPyplotGlobalUse', False)
+        st.markdown("<h1 style='text-align: center;'>ARREST CHARTS</h1>", unsafe_allow_html=True)
+        add_vertical_space(2)
+        st.caption("This is the statistical bar graph representing the number of arrests in each field of the crime like theft is denoted by green, non-criminal assault is denoted by orange, criminal-offence is being denoted by light purple and many others . Those crimes in which action was not taken and arrest was not performed are denoted by the “0” in the left side of the Bar graph and those where arrest was done are denoted by “1”.")
+        plt.figure(figsize=(10,5))
+        arrest_plot = sns.countplot(data=crimes_data,x='arrest',hue='primary_type_grouped',palette='Set2')
+        plt.legend(loc = 'best')
+        st.pyplot()
+        
+        add_vertical_space(10)
+        st.caption("This is a statistical count graph which represents the number of arrests and non-arrests that has occured in the past years.")
+        plt.figure(figsize=(10,5))
         arrest_plot = sns.countplot(data=crimes_data,x='year',hue='arrest',palette='Set2')
         st.pyplot()

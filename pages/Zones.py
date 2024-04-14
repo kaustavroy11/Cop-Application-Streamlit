@@ -2,6 +2,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import streamlit as st
+from streamlit_extras.add_vertical_space import add_vertical_space
 
 # Load your data
 uploaded_file = st.sidebar.file_uploader("Upload CSV file", type=["csv"])
@@ -130,10 +131,14 @@ if uploaded_file is not None:
         crimes_data.domestic = crimes_data.domestic.astype(int)
         
         #zones plots
+        st.set_option('deprecation.showPyplotGlobalUse', False)
         plt.figure(figsize=(20, 6))
         zone_plot = sns.countplot(data=crimes_data,x='zone',hue='year',order=crimes_data.zone.value_counts().index,palette='Set2')
         st.pyplot()
 
         plt.figure(figsize=(20, 6))
         zone_plot = sns.countplot(data=crimes_data,x='season',hue='year',palette='Set2')
+        st.pyplot()
+        
+        zone_plot = sns.countplot(data=crimes_data,x='zone',order=crimes_data.zone.value_counts().index,palette='Set2')
         st.pyplot()
