@@ -129,6 +129,7 @@ if uploaded_file is not None:
         crimes_data.arrest = crimes_data.arrest.astype(int)
         crimes_data.domestic = crimes_data.domestic.astype(int)
         
-        
+        #Arrest plots
+        plt.figure(figsize=(20, 6))
         arrest_plot = sns.countplot(data=crimes_data,x='year',hue='arrest',palette='Set2')
         st.pyplot()
