@@ -132,13 +132,13 @@ if uploaded_file is not None:
         
         #zones plots
         st.set_option('deprecation.showPyplotGlobalUse', False)
+        zone_plot = sns.countplot(data=crimes_data,x='zone',order=crimes_data.zone.value_counts().index,palette='Set2')
+        st.pyplot()
+        
         plt.figure(figsize=(20, 6))
         zone_plot = sns.countplot(data=crimes_data,x='zone',hue='year',order=crimes_data.zone.value_counts().index,palette='Set2')
         st.pyplot()
 
         plt.figure(figsize=(20, 6))
         zone_plot = sns.countplot(data=crimes_data,x='season',hue='year',palette='Set2')
-        st.pyplot()
-        
-        zone_plot = sns.countplot(data=crimes_data,x='zone',order=crimes_data.zone.value_counts().index,palette='Set2')
         st.pyplot()
