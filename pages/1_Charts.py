@@ -135,13 +135,13 @@ if uploaded_file is not None:
         st.set_option('deprecation.showPyplotGlobalUse', False)
         st.header("Weekly Basis")
         st.caption("The weekly crime count graphs provide a detailed snapshot of crime trends over short intervals, offering a granular perspective on fluctuations in criminal activity. These graphs reveal how crime rates vary throughout the week, potentially indicating patterns such as heightened criminal activity during weekends or specific days.")
-        plt.figure(figsize=(10,5))
+        plt.figure(figsize=(19,10))
         zone_plot = sns.countplot(data=crimes_data,x='day_of_week',hue='year',order=crimes_data.day_of_week.value_counts().index,palette='Set2')
         st.pyplot()
         
         st.header("Monthly/Yearly Basis")
         st.caption("The count graphs illustrate the fluctuation of crime rates over monthly and yearly periods. Monthly data reveals nuanced patterns, with some months exhibiting peaks while others show declines in crime activity.")
-        plt.figure(figsize=(15,5))
+        plt.figure(figsize=(25,10))
         zone_plot = sns.countplot(data=crimes_data,x='month',hue='year',order=crimes_data.month.value_counts().index,palette='Set2')
         st.pyplot()
         
