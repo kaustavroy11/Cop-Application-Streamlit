@@ -131,6 +131,7 @@ if uploaded_file is not None:
         crimes_data.domestic = crimes_data.domestic.astype(int)
         
         #Arrest plots
+        #Crime Wise
         st.set_option('deprecation.showPyplotGlobalUse', False)
         st.markdown("<h1 style='text-align: center;'>ARREST CHARTS</h1>", unsafe_allow_html=True)
         add_vertical_space(2)
@@ -141,6 +142,7 @@ if uploaded_file is not None:
         plt.legend(loc = 'best')
         st.pyplot()
         
+        #Year Wise
         add_vertical_space(10)
         st.header("Year Wise")
         st.caption("This is a statistical count graph which represents the number of arrests and non-arrests that has occured in the past years.")

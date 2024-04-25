@@ -131,6 +131,7 @@ if uploaded_file is not None:
         crimes_data.domestic = crimes_data.domestic.astype(int)
         
         #Count Graphs
+        #WeeklyBasis
         st.markdown("<h1 style='text-align: center;'>COUNT GRAPHS</h1>", unsafe_allow_html=True)
         st.set_option('deprecation.showPyplotGlobalUse', False)
         st.header("Weekly Basis")
@@ -139,6 +140,7 @@ if uploaded_file is not None:
         zone_plot = sns.countplot(data=crimes_data,x='day_of_week',hue='year',order=crimes_data.day_of_week.value_counts().index,palette='Set2')
         st.pyplot()
         
+        #Monthly/Yearly Basis
         st.header("Monthly/Yearly Basis")
         st.caption("The count graphs illustrate the fluctuation of crime rates over monthly and yearly periods. Monthly data reveals nuanced patterns, with some months exhibiting peaks while others show declines in crime activity.")
         plt.figure(figsize=(25,10))
@@ -146,6 +148,7 @@ if uploaded_file is not None:
         st.pyplot()
         
         #Pie Chart
+        #CrimeWise
         add_vertical_space(10)
         st.markdown("<h1 style='text-align: center;'>PIE CHARTS</h1>", unsafe_allow_html=True)
         st.header("Crime Wise")
@@ -154,6 +157,7 @@ if uploaded_file is not None:
         plt.legend(loc ='best')
         st.pyplot()
 
+        #Area Wise
         st.header("Area Wise")
         st.caption("Visualizing crime data through a pie graph is a great way to easily understand the distribution of different types of crimes in a specific area. Each slice of the pie represents a different category of crime, such as theft, vandalism, assault, etc.")
         crimes_data_primary_type_pie = plt.pie(crimes_data.loc_grouped.value_counts(),labels=crimes_data.loc_grouped.value_counts().index,autopct='%1.1f%%',shadow=True,radius=3)
@@ -161,6 +165,7 @@ if uploaded_file is not None:
         st.pyplot()
         
         #Bar Graphs
+        #Crime Wise
         add_vertical_space(10)
         st.markdown("<h1 style='text-align: center;'>BAR GRAPHS</h1>", unsafe_allow_html=True)
         st.header("Crime Wise")
@@ -172,6 +177,7 @@ if uploaded_file is not None:
         plt.xticks(rotation=45) 
         st.pyplot()
         
+        #Area Wise
         st.header("Area Wise")
         st.caption("The area-based crime bar graphs offer a geographical perspective on crime patterns within specific regions or neighborhoods. By visually representing crime rates across different areas, these graphs provide insights into variations in criminal activity levels and hotspots.")
         plt.figure(figsize=(15,5))  # Adjust the figure size as needed

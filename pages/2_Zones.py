@@ -131,6 +131,7 @@ if uploaded_file is not None:
         crimes_data.domestic = crimes_data.domestic.astype(int)
         
         #zones plots
+        #CrimeWise
         st.set_option('deprecation.showPyplotGlobalUse', False)
         st.markdown("<h1 style='text-align: center;'>CRIME ZONES</h1>", unsafe_allow_html=True)
         add_vertical_space(2)
@@ -139,6 +140,7 @@ if uploaded_file is not None:
         zone_plot = sns.countplot(data=crimes_data,x='zone',order=crimes_data.zone.value_counts().index,palette='Set2')
         st.pyplot()
         
+        #Crime Zone Year Wise
         add_vertical_space(10)
         st.header("Crime Zone Year Wise")
         st.caption("This is a statistical bar graph that shows the number of crimes committed in particular zones over the past years. This information will help us in acknowledging whether there is a dip or increase in the crime rate.")
@@ -146,6 +148,7 @@ if uploaded_file is not None:
         zone_plot = sns.countplot(data=crimes_data,x='zone',hue='year',order=crimes_data.zone.value_counts().index,palette='Set2')
         st.pyplot()
 
+        #Crime Season Wise
         add_vertical_space(10)
         st.header("Crime Season Wise")
         st.caption("This is a visual display on how crimes are occuring over the past years and also providing us with the information that in which seasons are crime rate are at peak. The seasons are categorised as Spring, Summer, Winter and Autumn.")

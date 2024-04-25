@@ -159,6 +159,7 @@ if uploaded_file is not None:
         
         st.set_option('deprecation.showPyplotGlobalUse', False)
 
+        #Algorithms
         #Train test split with a test set size of 30% of entire data
         X_train, X_test, y_train, y_test = train_test_split(crimes_data_prediction.drop(['arrest_1'],axis=1),crimes_data_prediction['arrest_1'], test_size=0.3, random_state=42)
         #Standardizing the data
@@ -222,7 +223,7 @@ if uploaded_file is not None:
         st.text('Model Report:\n    ' + classification_report(y_test, y_pred))
         add_vertical_space(10)
 
-        #Random Forest classifier  - Best one
+        #Random Forest classifier  -
         model = RandomForestClassifier(n_estimators = 10,criterion='entropy',random_state=42)
         model.fit(X_train,y_train)
         y_pred = model.predict(X_test)
@@ -308,6 +309,7 @@ if uploaded_file is not None:
         st.text('Model Report:\n    ' + classification_report(y_test, y_pred))
         add_vertical_space(10)
 
+
         #Random Forest classifier for type of crime
         st.header("Random Forest")
         model = RandomForestClassifier(n_estimators = 10,criterion='entropy',random_state=42)
@@ -323,6 +325,8 @@ if uploaded_file is not None:
         add_vertical_space(1)
         st.text('Model Report:\n    ' + classification_report(y_test, y_pred))
         add_vertical_space(10)
+
+
 
         #Logistic Regression for predicting the type of crime -Best
         st.header("Logistic Regression")
