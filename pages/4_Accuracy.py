@@ -12,6 +12,21 @@ from sklearn.linear_model import LogisticRegression
 from sklearn import metrics
 from sklearn.metrics import classification_report
 
+def show_classification_report(y_true, y_pred):
+    report_dict = classification_report(
+        y_true,
+        y_pred,
+        output_dict=True
+    )
+    df_report = pd.DataFrame(report_dict).transpose().round(2)
+
+    # Clean accuracy row (optional but looks better)
+    if "accuracy" in df_report.index:
+        df_report.loc["accuracy", ["precision", "recall", "f1-score"]] = None
+
+    st.subheader("Model Classification Report")
+    st.dataframe(df_report, use_container_width=True)
+
 # Load your data
 uploaded_file = st.sidebar.file_uploader("Upload CSV file", type=["csv"])
 
@@ -157,8 +172,6 @@ if uploaded_file is not None:
         crimes_data_prediction = pd.get_dummies(crimes_data_prediction,drop_first=True)
         crimes_data_prediction.head()
         
-        st.set_option('deprecation.showPyplotGlobalUse', False)
-
         #Algorithms
         #Train test split with a test set size of 30% of entire data
         X_train, X_test, y_train, y_test = train_test_split(crimes_data_prediction.drop(['arrest_1'],axis=1),crimes_data_prediction['arrest_1'], test_size=0.3, random_state=42)
@@ -177,12 +190,14 @@ if uploaded_file is not None:
         st.markdown("<h1 style='text-align: center;'>PREDICTION OF CRIME</h1>", unsafe_allow_html=True)
         add_vertical_space(5)
         st.header("Gaussian Naive Bayes")
-        sns.heatmap(conf_matrix, annot = True, fmt = ".3f", square = True, cmap = plt.cm.Blues)
-        plt.ylabel('Actual')
-        plt.xlabel('Predicted')
-        plt.title('Confusion matrix')
-        plt.tight_layout()
-        st.pyplot()
+        st.markdown("---")
+        fig, ax = plt.subplots()
+        sns.heatmap(conf_matrix, annot=True, fmt=".3f", square=True, cmap="Blues", ax=ax)
+        ax.set_xlabel("Predicted")
+        ax.set_ylabel("Actual")
+        ax.set_title("Confusion Matrix")
+        st.pyplot(fig)
+        plt.close(fig)
 
         st.write('Accuracy = ',metrics.accuracy_score(y_test, y_pred))
         st.write('Error = ',1 - metrics.accuracy_score(y_test, y_pred))
@@ -192,8 +207,10 @@ if uploaded_file is not None:
         st.text('Confusion Matrix:')
         st.write(conf_matrix)
         add_vertical_space(1)
-        st.text('Model Report:\n    ' + classification_report(y_test, y_pred))
-        add_vertical_space(10)
+        # NEW: Display model report as a structured table
+        show_classification_report(y_test, y_pred)
+        st.markdown("---")
+        add_vertical_space(5)
 
         #Decision tree with Entropy as attribute measure
         model = tree.DecisionTreeClassifier(criterion = "entropy", random_state = 42)
@@ -204,12 +221,14 @@ if uploaded_file is not None:
 
         # Plot confusion matrix
         st.header("Decision Tree")
-        sns.heatmap(conf_matrix, annot = True, fmt = ".3f", square = True, cmap = plt.cm.Blues)
+        st.markdown("---")
+        fig, ax = plt.subplots()
+        sns.heatmap(conf_matrix, annot=True, fmt=".3f", square=True, cmap="Blues", ax=ax)
         plt.ylabel('Actual')
         plt.xlabel('Predicted')
-        plt.title('Confusion matrix')
-        plt.tight_layout()
-        st.pyplot()
+        ax.set_title("Confusion Matrix")
+        st.pyplot(fig)
+        plt.close(fig)
 
         #Classification Metrics
         st.write('Accuracy = ',metrics.accuracy_score(y_test, y_pred))
@@ -220,8 +239,9 @@ if uploaded_file is not None:
         st.text('Confusion Matrix:')
         st.write(conf_matrix)
         add_vertical_space(1)
-        st.text('Model Report:\n    ' + classification_report(y_test, y_pred))
-        add_vertical_space(10)
+        show_classification_report(y_test, y_pred)
+        st.markdown("---")
+        add_vertical_space(5)
 
         #Random Forest classifier  -
         model = RandomForestClassifier(n_estimators = 10,criterion='entropy',random_state=42)
@@ -232,12 +252,14 @@ if uploaded_file is not None:
 
         #Plot confusion matrix
         st.header("Random Forest")
-        sns.heatmap(conf_matrix, annot = True, fmt = ".3f", square = True, cmap = plt.cm.Blues)
+        st.markdown("---")
+        fig, ax = plt.subplots()
+        sns.heatmap(conf_matrix, annot=True, fmt=".3f", square=True, cmap="Blues", ax=ax)
         plt.ylabel('Actual')
         plt.xlabel('Predicted')
         plt.title('Confusion matrix')
-        plt.tight_layout()
-        st.pyplot()
+        st.pyplot(fig)
+        plt.close(fig)
 
         #Classification Metrics
         st.write('Accuracy = ',metrics.accuracy_score(y_test, y_pred))
@@ -248,8 +270,9 @@ if uploaded_file is not None:
         st.text('Confusion Matrix:')
         st.write(conf_matrix)
         add_vertical_space(1)
-        st.text('Model Report:\n    ' + classification_report(y_test, y_pred))
-        add_vertical_space(10)
+        show_classification_report(y_test, y_pred)
+        st.markdown("---")
+        add_vertical_space(5)
 
         #Logistic Regression
         classifier = LogisticRegression(random_state=42)
@@ -260,12 +283,14 @@ if uploaded_file is not None:
         
         # Plot confusion matrix
         st.header("Logistic Regression")
-        sns.heatmap(conf_matrix, annot = True, fmt = ".3f", square = True, cmap = plt.cm.Blues)
+        st.markdown("---")
+        fig, ax = plt.subplots()
+        sns.heatmap(conf_matrix, annot=True, fmt=".3f", square=True, cmap="Blues", ax=ax)
         plt.ylabel('Actual')
         plt.xlabel('Predicted')
         plt.title('Confusion matrix')
-        plt.tight_layout()
-        st.pyplot()
+        st.pyplot(fig)
+        plt.close(fig)
 
         #Classification Metrics
         st.write('Accuracy = ',metrics.accuracy_score(y_test, y_pred))
@@ -276,8 +301,9 @@ if uploaded_file is not None:
         st.text('Confusion Matrix:')
         st.write(conf_matrix)
         add_vertical_space(1)
-        st.text('Model Report:\n    ' + classification_report(y_test, y_pred))
-        add_vertical_space(10)
+        show_classification_report(y_test, y_pred)
+        st.markdown("---")
+        add_vertical_space(5)
         
         #Predicting type of crime
         crimes_data_type = crimes_data.loc[crimes_data.primary_type_grouped.isin(['THEFT','NON-CRIMINAL_ASSAULT','CRIMINAL_OFFENSE'])]
@@ -294,7 +320,29 @@ if uploaded_file is not None:
 
         #Decision tree classifier for type of crime
         st.markdown("<h1 style='text-align: center;'>PREDICTION OF CRIME TYPE</h1>", unsafe_allow_html=True)
+        add_vertical_space(1)
+        st.header("Gaussian Naive Bayes")
+        st.markdown("---")
+        # Train model
+        gnb_model = GaussianNB()
+        gnb_model.fit(X_train, y_train)
+        # Predict
+        y_pred = gnb_model.predict(X_test)
+        # Confusion matrix
+        conf_matrix = metrics.confusion_matrix(y_test, y_pred)
+        # Metrics
+        st.write('Accuracy = ', metrics.accuracy_score(y_test, y_pred))
+        st.write('Error = ', 1 - metrics.accuracy_score(y_test, y_pred))
+        st.text('Confusion Matrix:')
+        st.write(conf_matrix)
+        add_vertical_space(1)
+        # Table-based classification report
+        show_classification_report(y_test, y_pred)
+        st.markdown("---")
+        add_vertical_space(5)
+        
         st.header("Decision Tree")
+        st.markdown("---")
         model = tree.DecisionTreeClassifier(criterion = "entropy", random_state = 42)
         model.fit(X_train, y_train)
         y_pred = model.predict(X_test)
@@ -306,12 +354,13 @@ if uploaded_file is not None:
         st.text('Confusion Matrix:')
         st.write(conf_matrix)
         add_vertical_space(1)
-        st.text('Model Report:\n    ' + classification_report(y_test, y_pred))
-        add_vertical_space(10)
-
+        show_classification_report(y_test, y_pred)
+        st.markdown("---")
+        add_vertical_space(5)
 
         #Random Forest classifier for type of crime
         st.header("Random Forest")
+        st.markdown("---")
         model = RandomForestClassifier(n_estimators = 10,criterion='entropy',random_state=42)
         model.fit(X_train,y_train)
         y_pred = model.predict(X_test)
@@ -323,13 +372,13 @@ if uploaded_file is not None:
         st.text('Confusion Matrix:')
         st.write(conf_matrix)
         add_vertical_space(1)
-        st.text('Model Report:\n    ' + classification_report(y_test, y_pred))
-        add_vertical_space(10)
-
-
+        show_classification_report(y_test, y_pred)
+        st.markdown("---")
+        add_vertical_space(5)
 
         #Logistic Regression for predicting the type of crime -Best
         st.header("Logistic Regression")
+        st.markdown("---")
         classifier = LogisticRegression(random_state=42)
         classifier.fit(X_train,y_train)
         y_pred = classifier.predict(X_test)
@@ -340,6 +389,7 @@ if uploaded_file is not None:
         st.text('Confusion Matrix:')
         st.write(conf_matrix)
         add_vertical_space(1)
-        st.text('Model Report:\n    ' + classification_report(y_test, y_pred))
-        add_vertical_space(10)
+        show_classification_report(y_test, y_pred)
+        st.markdown("---")
+        add_vertical_space(5)
        

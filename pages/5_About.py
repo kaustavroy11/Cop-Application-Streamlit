@@ -3,4 +3,22 @@ import streamlit as st
 #Header
 st.markdown("<h1 style='text-align: center;'>About Us</h1>", unsafe_allow_html=True)
 #Description
-st.markdown("**Introducing our new AI-powered Crime Awareness Assistant! This innovative tool combines crime data analysis with location tracking to provide users with up-to-date information about crimes in their vicinity. With just a few clicks, you can access detailed reports on the types of crimes occurring nearby, stay informed about safety trends, and receive proactive safety tips tailored to your location. Our goal is to empower individuals to make informed decisions and stay vigilant about their surroundings. Stay safe and informed with our Crime Awareness Assistant!Real-time data integration enables swift response to incidents. Privacy safeguards are paramount; we adhere to strict ethical guidelines. Collaborating with law enforcement agencies, we strive for safer communities. Through innovation and dedication, we promises to combat crime effectively, ensuring justice prevails.**")
+st.markdown(
+    """
+    **Our ML-powered Crime Awareness Assistant is designed to help people stay informed, alert, and safe. 
+    The platform intelligently analyzes crime datasets alongside location-based insights to deliver timely 
+    and relevant safety information to users.
+
+    With an intuitive interface and just a few interactions, users can explore detailed crime analysis, 
+    understand the types of incidents occurring in their surroundings, and identify emerging safety patterns. 
+    The system also provides location-specific awareness insights to help individuals make informed decisions 
+    in real-world situations.
+
+    Real-time data processing ensures quick insights and improved situational awareness. Privacy and ethical 
+    data usage remain a top priority, with strict safeguards in place to protect user information. By leveraging 
+    technology, data intelligence, and responsible design, this project aims to support safer communities and 
+    promote proactive crime awareness.
+
+    Stay informed. Stay alert. Stay safe.**
+    """
+)

@@ -2,14 +2,20 @@ import streamlit as st
 
 # Set the page configuration
 st.set_page_config(
-    page_title="-Xtra Help",
+    page_title="XtraHelp Analytics",
 )
 
 # Display the title and welcome message
-st.markdown("<h1 style='text-align: center;'>-Xtra Help</h1>", unsafe_allow_html=True)
-st.markdown("<h2 style='text-align: center;'>WELCOMES YOU!</h2>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>XtraHelp Analytics</h1>", unsafe_allow_html=True)
+st.markdown("<h2 style='text-align: center;'>Welcome!</h2>", unsafe_allow_html=True)
 
-# Add a header and description
-st.markdown("<h3>Safely Guard people and get instant help with proper information</h3>", unsafe_allow_html=True)
-st.markdown("<h3>Here we have given you four options to analysis your dataset in different ways</h3>", unsafe_allow_html=True)
-st.markdown("<h4>To Enter your Dataset Click on the options present on ther sidebar and Click on Show Analiysis</h4>",unsafe_allow_html=True)
+# Description section
+st.markdown("<h3>Safeguarding people with instant access to reliable information</h3>", unsafe_allow_html=True)
+st.markdown(
+    "<h3>Explore your dataset through four powerful analytical approaches</h3>",
+    unsafe_allow_html=True
+)
+st.markdown(
+    "<h4>To begin, upload your dataset from the sidebar and click on <b>Show Analysis</b></h4>",
+    unsafe_allow_html=True
+)
